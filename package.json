@@ -1,0 +1,27 @@
+{
+  "name": "downloadapi",
+  "version": "1.0.0",
+  "description": "Simple download API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeSparxiate/DownloadAPI.git"
+  },
+  "keywords": [
+    "API",
+    "nodejs"
+  ],
+  "author": "Thibault Desplat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LeSparxiate/DownloadAPI/issues"
+  },
+  "homepage": "https://github.com/LeSparxiate/DownloadAPI#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  }
+}
