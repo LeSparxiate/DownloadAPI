@@ -1,7 +1,7 @@
 var express = require('express');
 var endpoints = require('./endpoints/endpoints');
 
-const port = 1337;
+const port = 80;
 var api = express();
 
 api.use('/', endpoints);
