@@ -6,7 +6,7 @@ Simple download API
 
 npm install
 
-Dont forget to change DB information in ./endpoints/endpoints.js l.7
+Don't forget to change DB information in ./endpoints/endpoints.js l.7
 
 You can find a simple DB Schema (MySQL) inside ./DatabaseSchema/
 
