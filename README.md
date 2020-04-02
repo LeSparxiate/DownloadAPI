@@ -18,13 +18,21 @@ node index.js
 
 # Access
 
-In any web browser :
+Endpoints :
 
-localhost/download/123456
+> GET - localhost/download/123456
 
-localhost/download/page/1
+> GET - localhost/download/page/1
 
-localhost/download/qr/123456
+> GET - localhost/download/qr/123456
+
+> GET - localhost/delete/123456
+
+> POST - localhost/upload
+
+Body type : form-data
+* Parameter :
+  * file : yourfile.txt
 
 # Reminder
 
