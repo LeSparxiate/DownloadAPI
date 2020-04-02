@@ -97,20 +97,20 @@ module.exports = {
             });
         });
     },
+    //delete method
     deleteFile: function (req, res) {
         var idfile = req.params["id"];
 
         //SQL query to get the file url stored in database
         var sql = "select f.filepath, f.available from files f where f.idfiles = ?";
         request.performQuery(sql, [idfile], function(response) {
-            //if response contains a result we start the download for client
+            //if response contains a result we delete the file from the upload folder
             if (response !== undefined && response.length > 0 && response[0].available == 1) {
                 fs.unlink(response[0].filepath, function (err) {
                     if (err) {
                         res.json({"res": "An error occured. File may be unavailable."});
                     } else {
-                        //we update the "downloaded" counter in DB
-                        //comment this if not needed
+                        //we update the "available" field in DB
                         var updateQuery = "update files f set f.available = 0 where f.idfiles = ?";
                         request.performQuery(updateQuery, [idfile], function (updateresult){
                             if (updateresult === undefined)
