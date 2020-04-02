@@ -11,6 +11,11 @@ router.post('/upload', function(req, res, next) {
     DAL.uploadFile(req, res);
 });
 
+//endpoint /download/ID where ID MUST be a number
+router.get('/delete/:id(\\d+)', function(req, res, next) {
+    DAL.deleteFile(req, res);
+});
+
 //Filters ?
 router.get('/download/page/:nopage(\\d+)', function(req, res, next) {
     DAL.downloadList(req, res);
