@@ -6,11 +6,11 @@ Simple download API
 
 npm install
 
-Don't forget to change DB information in ./endpoints/endpoints.js l.7
+Don't forget to change DB information in ./DAL/config.js
 
 You can find a simple DB Schema (MySQL) inside ./DatabaseSchema/
 
-You can also change the API port -> ./index.js l.4 (default is 1337)
+You can also change the API port -> ./index.js l.4 (default is 80)
 
 # Run
 
@@ -20,10 +20,14 @@ node index.js
 
 In any web browser :
 
-localhost:[port]/download/123456
+localhost/download/123456
+
+localhost/download/page/1
+
+localhost/download/qr/123456
 
 # Reminder
 
 This is and will remain a SIMPLE Download API example.
 
-It's not designed to do anything else.
+Feel free to customize it.
