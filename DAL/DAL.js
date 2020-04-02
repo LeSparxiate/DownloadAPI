@@ -1,15 +1,19 @@
-var request = require("./requests");
-var qrcode = require("qrcode");
-var ip = require("ip");
+var request = require('./requests');
+var qrcode = require('qrcode');
+var ip = require('ip');
+var fs = require('fs');
+var path = require('path');
+var moment = require('moment');
+var uploadPath = "./upload/";
 
 module.exports = {
     //start the download of the file specified in ID
     downloadFile: function (req, res) {
-        var idgen = req.params["id"];
+        var idfile = req.params["id"];
 
         //SQL query to get the file url stored in database
-        var sql = "select f.idfiles, f.filepath, f.downloaded, f.available from files f where f.idgen = ?";
-        request.performQuery(sql, [idgen], function(response) {
+        var sql = "select f.idfiles, f.filepath, f.downloaded, f.available from files f where f.idfiles = ?";
+        request.performQuery(sql, [idfile], function(response) {
             //if response contains a result we start the download for client
             if (response !== undefined && response.length > 0 && response[0].available == 1) {
                 res.download(response[0].filepath, function (err) {
@@ -62,5 +66,31 @@ module.exports = {
             }
         }
         generateQR(ip.address() + "/download/" + req.params["id"]);
+    },
+    //upload method
+    uploadFile: function (req, res) {
+        req.pipe(req.busboy);
+
+        //we need to use a stream because post requests are limited to 2gb
+        req.busboy.on('file', (fieldname, file, filename) => {
+            console.log(`Upload of '${filename}' started`);
+
+            var tsfilename = Date.now() + "_" + filename;
+            const fstream = fs.createWriteStream(path.join(uploadPath, tsfilename));
+            file.pipe(fstream);
+
+            fstream.on('close', () => {
+                console.log(`Upload of '${filename}' finished`);
+
+                //insert in DB once file has been downloaded into the directory
+                var sql = "insert into files (filepath, date_added) VALUES (?, ?);";
+                request.performQuery(sql, [uploadPath + tsfilename,
+                    moment().format('YYYY-MM-DD HH:mm:ss')], function(response) {
+                    if (response === undefined)
+                        console.log("Error inserting");
+                    res.json({"idfiles": response.insertId});
+                });
+            });
+        });
     }
 };

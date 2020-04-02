@@ -7,8 +7,8 @@ router.get('/', function(req, res, next) {
     res.json({'endpoint': '/'});
 });
 
-router.get('/upload', function(req, res, next) {
-    res.json({'endpoint': '/upload'});
+router.post('/upload', function(req, res, next) {
+    DAL.uploadFile(req, res);
 });
 
 //Filters ?

@@ -1,8 +1,13 @@
 var express = require('express');
 var endpoints = require('./endpoints/endpoints');
+var busboy = require('connect-busboy');
 
 const port = 80;
 var api = express();
+
+api.use(busboy({
+    highWaterMark: 2 * 1024 * 1024
+}));
 
 api.use('/', endpoints);
 
