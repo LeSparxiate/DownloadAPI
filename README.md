@@ -36,6 +36,6 @@ Body type : form-data
 
 # Reminder
 
-This is and will remain a SIMPLE Download API example.
+This is and will remain a Small NAS API example.
 
 Feel free to customize it.
