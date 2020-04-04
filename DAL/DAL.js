@@ -64,12 +64,12 @@ module.exports = {
     downloadQR: function (req, res) {
         const generateQR = async text => {
             try {
-                res.send("<img src='" + await qrcode.toDataURL(text) + "'/>");
+                res.json({"res": await qrcode.toDataURL(text)});
             } catch (err) {
                 console.error(err);
             }
         }
-        generateQR(ip.address() + "/download/" + req.params["id"]);
+        generateQR(ip.address() + ":4200/download/" + req.params["id"]);
     },
     //upload method
     uploadFile: function (req, res) {

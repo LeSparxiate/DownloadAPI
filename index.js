@@ -2,9 +2,18 @@ var express = require('express');
 var endpoints = require('./endpoints/endpoints');
 var busboy = require('connect-busboy');
 
-const port = 80;
+const port = 4200;
 var api = express();
 
+var allowCrossDomain = function(req, res, next) {
+    res.header('Content-Type', 'application/json');
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+}
+
+api.use(allowCrossDomain);
 api.use(busboy({
     highWaterMark: 2 * 1024 * 1024
 }));
